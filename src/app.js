@@ -1,11 +1,13 @@
 const express = require('express');
 const app = express();
 const db = require('./db/db');
+const productRoutes = require('./routes/productRoutes');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const args = process.argv.slice(2);
 
 dotenv.config('../.env');
+app.use(express.json())
 
 if(args.includes('--development')) {
   process.env.NODE_ENV = 'development';
@@ -28,5 +30,7 @@ else if (process.env.NODE_ENV === 'production') {
   db.connect(uri);
   app.use(morgan('combined'));
 }
+
+app.use('/product' ,productRoutes);
 
 module.exports = app;
