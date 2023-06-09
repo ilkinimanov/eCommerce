@@ -32,7 +32,13 @@ const productSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
     required: true
+  },
+  stockCount: {
+    type: Number,
+    required: true
   }
+}, {
+  timestamps: true
 });
 
 const productModel = mongoose.model('Product', productSchema);
