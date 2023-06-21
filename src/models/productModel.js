@@ -1,6 +1,5 @@
-const mongoose = require('mongoose');
-const productValidators = require('../validators/productValidators');
-
+import mongoose from 'mongoose';
+import * as productValidators from '../validators/productValidators.js';
 
 const productSchema = new mongoose.Schema({
   title: {
@@ -43,4 +42,4 @@ const productSchema = new mongoose.Schema({
 
 const productModel = mongoose.model('Product', productSchema);
 
-module.exports = productModel;
+export default productModel;

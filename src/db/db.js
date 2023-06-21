@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-exports.connect = async (uri) => {
+export const connect = async (uri) => {
   mongoose
     .connect(uri)
     .then(() => {

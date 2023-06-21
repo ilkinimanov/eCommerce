@@ -1,9 +1,10 @@
-const express = require('express');
+import express from 'express';
+import * as db from './db/db.js';
+import productRoutes from './routes/productRoutes.js';
+import morgan from 'morgan';
+import dotenv from 'dotenv';
+
 const app = express();
-const db = require('./db/db');
-const productRoutes = require('./routes/productRoutes');
-const morgan = require('morgan');
-const dotenv = require('dotenv');
 const args = process.argv.slice(2);
 
 dotenv.config('../.env');
@@ -31,6 +32,6 @@ else if (process.env.NODE_ENV === 'production') {
   app.use(morgan('combined'));
 }
 
-app.use('/product' ,productRoutes);
+app.use('/product', productRoutes);
 
-module.exports = app;
+export default app;
