@@ -1,16 +1,26 @@
 import express from 'express';
 import * as productControllers from '../controllers/productControllers.js';
+import * as productMiddlewares from '../middlewares/productQueryMiddlewares.js';
 
 const router = express.Router();
 
 router
   .route('/')
-    .get(productControllers.getProducts)
+    .get(
+      productMiddlewares.productQueryFilter,
+      productMiddlewares.productQuerySort,
+      productMiddlewares.productQueryFields,
+      productMiddlewares.productQueryPaginate,
+      productControllers.getProducts
+      )
     .post(productControllers.createProduct);
 
 router
   .route('/:id')
-    .get(productControllers.getProductById)
+    .get(
+      productMiddlewares.productQueryFields,
+      productControllers.getProductById
+      )
     .patch(productControllers.updateProductById)
     .delete(productControllers.deleteProduct)
 

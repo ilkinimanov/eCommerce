@@ -2,7 +2,15 @@ import Product from '../models/productModel.js';
 
 export const getProducts = async(req, res) => {
   try {
-    const products = await Product.find();
+    const query = Product
+      .find(req.query)
+      .skip(req.skip)
+      .limit(req.limit)
+      .select(req.fields)
+      .sort(req.sort);
+
+      const products = await query;
+
     res
       .status(200)
       .json(products);
@@ -30,7 +38,10 @@ export const createProduct = async(req, res) => {
 
 export const getProductById = async(req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
+    const query =  Product
+      .findById(req.params.id)
+      .select(req.fields);
+
     if (!product) {
       throw new Error('Product not found');
     }
